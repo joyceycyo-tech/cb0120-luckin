@@ -1,0 +1,772 @@
+<title>瑞幸　首尾呼應框架　議程書</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<style>
+/* 單一淺色設計：刻意固定為紙本報告書的白底，不隨系統切換深色 */
+:root{
+  color-scheme:light;
+  --paper:#ffffff;
+  --ground:#f4f6f9;
+  --ink:#101a2b;
+  --ink-2:#44526a;
+  --ink-3:#6b7788;
+  --rule:#e3e7ee;
+  --rule-mid:#cdd4de;
+  --rule-strong:#101a2b;
+  --im:#1d6b43;  --im-t:#eef6f1;
+  --mg:#91551f;  --mg-t:#faf2e9;
+  --fi:#24527f;  --fi-t:#edf3f9;
+  --neg:#9d2318; --neg-t:#fbeeec;
+  --mono:'IBM Plex Mono', ui-monospace, monospace;
+  --sans:'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif;
+  --serif:'Noto Serif TC', Georgia, serif;
+}
+*{box-sizing:border-box}
+body{margin:0; background:var(--ground); color:var(--ink);
+  font-family:var(--sans); font-size:16px; line-height:1.7; -webkit-font-smoothing:antialiased}
+.sheet{max-width:1180px; margin:0 auto; background:var(--paper); border-left:1px solid var(--rule); border-right:1px solid var(--rule)}
+.pad{padding-inline:clamp(20px,4.4vw,64px)}
+h1,h2,h3,h4{margin:0; font-family:var(--serif); font-weight:700; line-height:1.28; text-wrap:balance}
+p{margin:0}
+b{font-weight:700}
+.num{font-family:var(--mono); font-variant-numeric:tabular-nums; font-weight:500}
+.neg{color:var(--neg)}
+
+/* ── masthead ── */
+.mast{border-bottom:3px solid var(--rule-strong); padding-block:44px 26px}
+.kicker{font-family:var(--mono); font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-3)}
+h1{font-size:clamp(26px,4vw,38px); margin-top:14px; letter-spacing:-.01em}
+.standfirst{margin-top:16px; max-width:66ch; color:var(--ink-2); font-size:16.5px}
+.facts{display:flex; flex-wrap:wrap; gap:0; margin-top:28px; border-top:1px solid var(--rule)}
+.fact{flex:1 1 150px; padding:14px 0 2px; border-right:1px solid var(--rule); padding-right:18px; margin-right:18px}
+.fact:last-child{border-right:0; margin-right:0; padding-right:0}
+.fact .k{display:block; font-size:12.5px; color:var(--ink-3); letter-spacing:.04em}
+.fact .v{display:block; font-family:var(--mono); font-size:26px; font-weight:600; line-height:1.25; letter-spacing:-.01em}
+.fact .s{display:block; font-size:12.5px; color:var(--ink-3)}
+
+/* ── nav ── */
+.nav{position:sticky; top:env(safe-area-inset-top,0px); z-index:30; background:rgba(255,255,255,.94); backdrop-filter:blur(10px); border-bottom:1px solid var(--rule)}
+.navin{max-width:1180px; margin:0 auto; display:flex; gap:20px; align-items:center; flex-wrap:wrap; padding-block:9px; padding-inline:clamp(20px,4.4vw,64px)}
+.navin a{color:var(--ink-2); text-decoration:none; font-size:13.5px; border-bottom:1.5px solid transparent; padding-bottom:1px}
+.navin a:hover{color:var(--ink); border-bottom-color:var(--rule-mid)}
+.navin a:focus-visible{outline:2px solid var(--fi); outline-offset:3px}
+.spacer{flex:1}
+.chips{display:flex; gap:6px}
+.chip{font-family:var(--sans); font-size:13px; border:1px solid var(--rule-mid); background:transparent; color:var(--ink-2); border-radius:3px; padding:3px 11px; cursor:pointer}
+.chip:hover{border-color:var(--ink-3)}
+.chip:focus-visible{outline:2px solid var(--fi); outline-offset:2px}
+.chip[aria-pressed="true"]{background:var(--ink); border-color:var(--ink); color:#fff}
+.chip.im[aria-pressed="true"]{background:var(--im); border-color:var(--im)}
+.chip.mg[aria-pressed="true"]{background:var(--mg); border-color:var(--mg)}
+.chip.fi[aria-pressed="true"]{background:var(--fi); border-color:var(--fi)}
+body[data-track="im"] [data-track]:not([data-track="im"]),
+body[data-track="mg"] [data-track]:not([data-track="mg"]),
+body[data-track="fi"] [data-track]:not([data-track="fi"]){opacity:.22}
+[data-track]{transition:opacity .18s}
+
+/* ── sections ── */
+section{padding-block:46px; border-bottom:1px solid var(--rule)}
+section:last-of-type{border-bottom:0}
+.shead{display:grid; grid-template-columns:78px 1fr; gap:0 22px; align-items:start}
+.shead .no{font-family:var(--mono); font-size:12.5px; color:var(--ink-3); letter-spacing:.14em; padding-top:9px; border-top:2px solid var(--rule-strong)}
+.shead .tt{border-top:2px solid var(--rule-strong); padding-top:9px}
+h2{font-size:clamp(20px,2.5vw,26px)}
+.lede{margin-top:8px; color:var(--ink-2); font-size:15.5px; max-width:76ch}
+.body{margin-top:26px}
+
+/* ── tables ── */
+.tw{overflow-x:auto}
+table{border-collapse:collapse; width:100%; min-width:720px; font-size:15px}
+th{text-align:left; font-weight:500; font-size:12.5px; letter-spacing:.06em; color:var(--ink-3);
+   padding:0 14px 8px 0; border-bottom:1.5px solid var(--rule-strong); white-space:nowrap; vertical-align:bottom}
+td{padding:13px 14px 13px 0; border-bottom:1px solid var(--rule); vertical-align:top; line-height:1.6}
+tr:last-child td{border-bottom:1.5px solid var(--rule-mid)}
+td:last-child, th:last-child{padding-right:0}
+.tnum{font-family:var(--mono); font-variant-numeric:tabular-nums; white-space:nowrap}
+.r{text-align:right}
+tr.now td{background:#fbfcfe; box-shadow:inset 3px 0 0 var(--ink)}
+tr.now td:first-child{padding-left:13px}
+.wk{font-family:var(--mono); font-size:12px; color:var(--ink-3); letter-spacing:.08em; display:block}
+.dt{display:block; font-family:var(--mono); font-size:18px; font-weight:600; letter-spacing:-.01em; line-height:1.35}
+.dow{display:block; font-size:12px; color:var(--ink-3); white-space:nowrap}
+
+/* track marks */
+.mk{display:inline-flex; align-items:center; gap:7px; white-space:nowrap; font-weight:500}
+.mk::before{content:""; width:9px; height:9px; border-radius:2px; flex:none}
+.mk.im::before{background:var(--im)} .mk.mg::before{background:var(--mg)} .mk.fi::before{background:var(--fi)}
+.mk.all::before{background:var(--ink-3)}
+.mk.im{color:var(--im)} .mk.mg{color:var(--mg)} .mk.fi{color:var(--fi)} .mk.all{color:var(--ink-2)}
+.cite{font-family:var(--mono); font-size:12.5px; color:var(--ink-3); display:block; margin-top:4px; line-height:1.55}
+.sm{font-size:13.5px; color:var(--ink-3)}
+.tnum.sm{white-space:normal; line-height:1.75}
+td.tnum.sm{color:var(--ink-2)}
+
+/* ── figure ── */
+figure{margin:0}
+.fig{border:1px solid var(--rule); background:var(--paper); padding:14px; overflow-x:auto}
+.fig svg{display:block; width:100%; min-width:900px; height:auto}
+figcaption{margin-top:10px; font-size:13px; color:var(--ink-3)}
+
+/* ── timeline ── */
+.tl{display:flex; border:1px solid var(--rule-mid); border-radius:3px; overflow:hidden; margin-bottom:24px}
+.tl div{padding:12px 14px; font-size:13px; line-height:1.5; border-right:1px solid rgba(255,255,255,.5)}
+.tl div:last-child{border-right:0}
+.tl b{display:block; font-family:var(--mono); font-size:15px; margin-bottom:3px}
+.tl .t1{flex:2.5; background:var(--mg-t); color:var(--mg)}
+.tl .t2{flex:13.5; background:var(--fi-t); color:var(--fi)}
+.tl .t3{flex:3.5; background:var(--mg-t); color:var(--mg)}
+.tl .t4{flex:0.5; background:#f4f6f9; color:var(--ink-3); min-width:64px}
+
+/* ── swimlane ── */
+.lanes{border-top:1.5px solid var(--rule-strong)}
+.lane{display:grid; grid-template-columns:132px 1fr; gap:14px; align-items:center; padding-block:12px; border-bottom:1px solid var(--rule)}
+.lane .lh .n{display:block; font-weight:700; font-size:16px} .lane .lh .c{display:block; font-size:12.5px; color:var(--ink-3); line-height:1.45}
+.lane.im .lh .n{color:var(--im)} .lane.mg .lh .n{color:var(--mg)} .lane.fi .lh .n{color:var(--fi)}
+.slots{display:grid; grid-template-columns:repeat(13,1fr); gap:4px}
+.slot{min-height:56px; border-radius:3px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1px;
+      font-family:var(--mono); font-size:11px; border:1px solid var(--rule); background:#fafbfc}
+.slot.on{font-weight:600; border-width:1px}
+.slot .p{display:block} .slot span{display:block; text-align:center} .slot.on .p{font-size:12px}
+.slot.im{background:var(--im-t); border-color:var(--im); color:var(--im)}
+.slot.mg{background:var(--mg-t); border-color:var(--mg); color:var(--mg)}
+.slot.fi{background:var(--fi-t); border-color:var(--fi); color:var(--fi)}
+.slot.loop{box-shadow:0 0 0 2px var(--mg) inset}
+.hos{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:4px 26px; margin-top:16px}
+.hos div{font-size:13.5px; color:var(--ink-2); padding-left:14px; border-left:2px solid var(--rule-mid)}
+.hos b{font-family:var(--mono); font-size:12.5px; color:var(--ink); display:block}
+.hos div.strong{border-left-color:var(--mg)}
+
+/* ── findings ── */
+.find{padding-block:20px; border-bottom:1px solid var(--rule); display:grid; grid-template-columns:78px 1fr; gap:0 22px}
+.find:last-child{border-bottom:0}
+.find .fno{font-family:var(--mono); font-size:12.5px; color:var(--ink-3); letter-spacing:.1em; padding-top:3px}
+.find h4{font-size:17.5px}
+.find.key h4{color:var(--neg)}
+.find .own{float:right; font-size:12.5px; color:var(--ink-3); font-family:var(--mono)}
+.calc{font-family:var(--mono); font-size:14px; background:#f8fafc; border:1px solid var(--rule); border-left:3px solid var(--rule-mid); padding:9px 14px; margin-top:10px; overflow-x:auto; white-space:nowrap; line-height:1.7}
+.find.key .calc{background:var(--neg-t); border-left-color:var(--neg)}
+.find p{margin-top:10px; font-size:15px}
+.find .so{font-size:13.5px; color:var(--ink-3); margin-top:8px}
+
+/* ── issues (board vs consultant) ── */
+.issue{padding-block:26px; border-bottom:1px solid var(--rule)}
+.issue:last-child{border-bottom:0}
+.ih{display:flex; gap:14px; align-items:baseline; flex-wrap:wrap; padding-bottom:12px; border-bottom:1px solid var(--rule)}
+.ih h3{font-size:19px}
+.ih .en{font-family:var(--mono); font-size:12.5px; color:var(--ink-3)}
+.pcs{display:grid; grid-template-columns:1fr 1fr; gap:0 40px; margin-top:16px}
+.pc h5{margin:0 0 10px; font-size:12.5px; letter-spacing:.1em; font-family:var(--sans); font-weight:700; display:flex; gap:10px; align-items:baseline; flex-wrap:wrap}
+.pc.board h5{color:var(--ink)} .pc.consult h5{color:var(--fi)}
+.pc .own{font-family:var(--mono); font-size:12px; color:var(--ink-3); letter-spacing:0; font-weight:400}
+.pc ul{margin:0; padding-left:19px}
+.pc li{font-size:15px; line-height:1.68; margin-bottom:11px}
+.pc li::marker{color:var(--rule-mid)}
+
+/* ── script cards ── */
+.script{padding-block:26px; border-bottom:1px solid var(--rule)}
+.script:last-child{border-bottom:0}
+.sc-h{display:flex; gap:14px; align-items:baseline; flex-wrap:wrap; margin-bottom:12px}
+.sc-h h3{font-size:19px}
+.sc-h .en{font-family:var(--mono); font-size:12.5px; color:var(--ink-3)}
+.sc-body{font-size:15.5px; line-height:1.9; padding:20px 24px; background:#f8fafc; border:1px solid var(--rule); border-left:3px solid var(--mg); white-space:pre-wrap}
+.sc-body ol{margin:8px 0 0; padding-left:20px}
+.sc-body li{margin-bottom:6px}
+.sc-meta{margin-top:10px; font-size:13px; color:var(--ink-3); display:flex; gap:18px; flex-wrap:wrap}
+.handoff{margin-top:14px; padding:12px 16px; background:var(--mg-t); border-left:3px solid var(--mg); font-size:14.5px; line-height:1.7}
+.handoff .lb{display:block; font-family:var(--mono); font-size:11.5px; letter-spacing:.14em; color:var(--mg); margin-bottom:5px}
+
+/* ── verdict ── */
+.verdict{margin-top:18px; padding:22px 26px; background:var(--ink); color:#fff; border-radius:3px}
+.verdict .lb{font-family:var(--mono); font-size:12px; letter-spacing:.14em; color:#9aa6b6; text-transform:uppercase}
+.verdict h4{color:#fff; font-size:21px; margin-top:8px; font-family:var(--serif)}
+.verdict p{margin-top:12px; font-size:15px; line-height:1.75; color:#dfe4ec}
+.triggers{margin-top:16px; display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px}
+.trigger{background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18); border-radius:3px; padding:12px 14px}
+.trigger .tn{font-family:var(--mono); font-size:11.5px; color:#f4b183; letter-spacing:.08em}
+.trigger p{margin-top:4px; color:#fff; font-size:14px; line-height:1.6}
+
+.note{margin-top:20px; font-size:13.5px; color:var(--ink-3); padding-left:14px; border-left:2px solid var(--rule-mid)}
+.note.warn{border-left-color:var(--neg); color:var(--ink-2)}
+tr.done td{color:var(--ink-3)}
+tr.done td:first-child{box-shadow:inset 3px 0 0 var(--rule-mid)}
+tr.other td{color:var(--ink-3); font-style:italic}
+tr.other td:first-child{box-shadow:inset 3px 0 0 var(--rule-mid); font-style:normal}
+tr.rehearse td:first-child{box-shadow:inset 3px 0 0 var(--fi)}
+footer{padding-block:32px 56px; font-size:13px; color:var(--ink-3); line-height:1.8; border-top:3px solid var(--rule-strong)}
+
+@media (max-width:820px){
+  .pcs{grid-template-columns:1fr; gap:22px}
+  .lane{grid-template-columns:1fr; gap:8px}
+  .slots{grid-template-columns:repeat(7,1fr)}
+  .shead{grid-template-columns:1fr; gap:0}
+  .shead .no{border-top:0; padding-top:0}
+  .shead .tt{border-top:0; padding-top:4px}
+  .shead{border-top:2px solid var(--rule-strong); padding-top:9px}
+  .find{grid-template-columns:1fr; gap:4px}
+  .tl{flex-direction:column}
+  .tl div{border-right:0; border-bottom:1px solid rgba(255,255,255,.5)}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="sheet">
+
+<div class="pad mast">
+  <p class="kicker">TeamWorks-115　·　哈佛個案　瑞幸咖啡　·　首尾呼應框架　議程書</p>
+  <h1>首尾呼應框架（Bookending）｜20 分鐘總結裁決簡報</h1>
+  <p class="standfirst">情境：面對 2020 年 4 月爆發之 22 億元人民幣財務造假事件、股價暴跌 80% 後的處置決策。同一位 EMBA 經營高管（CEO/CFO 視角）擔任第 1 位開場與第 13 位總結裁決，中間 11 位組員負責數據解剖，全場僅 20 分鐘、不留預設 Q&amp;A。本文件是 13 人到 11/7 為止的分工與週會依據。</p>
+  <div class="facts">
+    <div class="fact"><span class="k">距報告日</span><span class="v">41 天</span><span class="s">2026/09/27 → 11/07</span></div>
+    <div class="fact"><span class="k">總長</span><span class="v">20.0 分</span><span class="s">不留預設 Q&amp;A</span></div>
+    <div class="fact"><span class="k">分工</span><span class="v">13 人</span><span class="s">工管 5 · 經管 4 · 資財 4</span></div>
+    <div class="fact"><span class="k">結構</span><span class="v">1 ＝ 13</span><span class="s">同一人開場與裁決</span></div>
+  </div>
+</div>
+
+<nav class="nav"><div class="navin">
+  <a href="#s1">週會</a><a href="#s2">心智圖</a><a href="#s3">分鏡</a><a href="#s4">交棒</a><a href="#s5">頭條數字</a><a href="#s6">四大處置戰略</a><a href="#s7">逐字稿</a>
+  <span class="spacer"></span>
+  <span class="chips">
+    <button class="chip" aria-pressed="true" data-t="">全部</button>
+    <button class="chip im" aria-pressed="false" data-t="im">工管</button>
+    <button class="chip mg" aria-pressed="false" data-t="mg">經管</button>
+    <button class="chip fi" aria-pressed="false" data-t="fi">資財</button>
+  </span>
+</div></nav>
+
+<!-- ─────────── 01 週會 ─────────── -->
+<section class="pad" id="s1">
+  <div class="shead">
+    <span class="no">01</span>
+    <div class="tt">
+      <h2>七場週六會議</h2>
+      <p class="lede">改版重點：<b>10/3 一次性定稿</b>——13 講次逐字稿、數字、四大處置戰略對句、經管-1 兩段逐字稿全部在這一場會議前完成。<b>10/10 為國慶日，排除實體會議</b>；原定「演練 1」改為<b>當週線上進行</b>，確切時段由全員線上表決另訂。11/7 前維持兩次演練節奏——10/10 當週線上演練 1、10/31 實體演練 2；中間 10/17、10/24 兩場照常空出來給組員分配到其他新專案，不再為本案開會。</p>
+    </div>
+  </div>
+
+  <div class="body tw">
+  <table>
+    <tr>
+      <th style="width:88px">場次</th>
+      <th style="width:104px">主責</th>
+      <th style="width:30%">交付物</th>
+      <th>必須定案 / 檢核</th>
+      <th style="width:96px" class="r">時長</th>
+    </tr>
+    <tr class="done">
+      <td><span class="wk">W1</span><span class="dt">09/26</span><span class="dow">週六 · 已完成</span></td>
+      <td><span class="mk all">全員</span></td>
+      <td>13 人認領 P1–P13 講次；確認經管-1 身兼開場與收尾</td>
+      <td>提出一個矛盾待解：開場稿提及「以 2019Q1 的數字」，收尾裁決稿卻指名「2019Q3 總營業費用率 138.33%」——留待 W2 10/3 一次定案（見發現 1）<span class="cite">主持 經管-1</span></td>
+      <td class="r tnum">90 分</td>
+    </tr>
+    <tr class="now">
+      <td><span class="wk">W2</span><span class="dt">10/03</span><span class="dow">週六 · 定稿日</span></td>
+      <td><span class="mk all">全員</span></td>
+      <td><b>全案一次性定稿</b>：P1–P13 全部逐字稿與數字定案；經管-1 開場稿（約 380 字）與收尾裁決稿（約 580 字）背稿版；四大處置戰略「董事會 vs 顧問」八句對句寫死；1→2、12→13 交棒句逐字定案</td>
+      <td>確認發現 1 定案結果（2019Q1 為主要錨定季度，見 05 頭條數字）與發現 2（資訊管理系併入資財之說法）；13 人各自的引用數字只留一組，不得會後再改<span class="cite">主持 經管-1</span></td>
+      <td class="r tnum">150 分</td>
+    </tr>
+    <tr class="other">
+      <td><span class="wk">W3</span><span class="dt">10/10</span><span class="dow">週六 · 國慶日（排除）</span></td>
+      <td><span class="mk all">—</span></td>
+      <td>國定假日，<b>不排實體會議</b>；原定「演練 1」不在這天進行</td>
+      <td>本週改為<b>線上演練 1</b>，13 段接成一份、含全部跨學程交棒；不綁定週六，確切日期與時段由全員線上表決另訂<span class="cite">發起 經管-1</span></td>
+      <td class="r tnum">待訂</td>
+    </tr>
+    <tr class="rehearse" data-track="fi">
+      <td><span class="wk">W3′</span><span class="dt">線上</span><span class="dow">本週 · 演練 1</span></td>
+      <td><span class="mk all">全員</span></td>
+      <td>定稿後第一次全場合練（視訊會議）：13 段接成一份，含全部跨學程交棒</td>
+      <td>總長第一次卡碼；揪出超時的段落與交棒卡頓點，會後各自回去修正一次；<b>時段由全員表決後補上</b><span class="cite">主持 經管-1</span></td>
+      <td class="r tnum">120 分</td>
+    </tr>
+    <tr class="other">
+      <td><span class="wk">W4</span><span class="dt">10/17</span><span class="dow">週六 · 新專案</span></td>
+      <td><span class="mk all">全員</span></td>
+      <td>本案不開會；時段挪用於其他新專案之工作分配</td>
+      <td>（本案）僅線上確認 W3 彩排後的修正是否各自完成，無須實體會議</td>
+      <td class="r tnum">—</td>
+    </tr>
+    <tr class="other">
+      <td><span class="wk">W5</span><span class="dt">10/24</span><span class="dow">週六 · 新專案</span></td>
+      <td><span class="mk all">全員</span></td>
+      <td>本案不開會；時段挪用於其他新專案之工作分配</td>
+      <td>（本案）個人自行背稿，經管-1 持續練習開場與收尾兩段逐字稿</td>
+      <td class="r tnum">—</td>
+    </tr>
+    <tr class="rehearse">
+      <td><span class="wk">W6</span><span class="dt">10/31</span><span class="dow">週六 · 演練 2</span></td>
+      <td><span class="mk all">全員</span></td>
+      <td>報告前最終彩排：手機計時，經管-1 開場 2.5 分＋收尾 3.5 分單獨練習，其餘 11 人合練 13.5 分</td>
+      <td>組內互扮董事追問四大處置戰略；經管-1 的收尾必須「不自問自答」；總長精準卡在 20:00<span class="cite">主持 經管-4</span></td>
+      <td class="r tnum">120 分</td>
+    </tr>
+    <tr>
+      <td><span class="wk">W7</span><span class="dt">11/07</span><span class="dow">週六 · 報告日</span></td>
+      <td><span class="mk all">全員</span></td>
+      <td>正式報告：13 講次依序上台，經管-1 首尾呼應</td>
+      <td>工管-5 場邊計時，超過 19:30 立即以手勢提醒經管-1 收束</td>
+      <td class="r tnum">20.0′</td>
+    </tr>
+  </table>
+  </div>
+  <p class="note">全程與本案相關者為：10/3 實體定稿、本週線上演練 1（原 10/10，因國慶假期改為線上、時段待全員表決）、10/31 實體演練 2；10/17 與 10/24 完全交給其他新專案分配，不安排本案議程。</p>
+  <p class="note warn">待辦：請經管-1 本週內在群組發起時段表決（例如平日晚上或週日白天），確認人數到齊後即為線上演練 1 的正式時間。</p>
+</section>
+
+<!-- ─────────── 02 心智圖 ─────────── -->
+<section class="pad" id="s2">
+  <div class="shead">
+    <span class="no">02</span>
+    <div class="tt">
+      <h2>20 分鐘時間軸與分工心智圖</h2>
+      <p class="lede">四段式控制卡：開場、11 人數據解剖、收尾裁決、彈性致謝。心智圖依「誰負責哪一塊」分群，不是上台順序——順序請見 03 分鏡表。</p>
+    </div>
+  </div>
+
+  <div class="body">
+  <div class="tl">
+    <div class="t1"><b>00:00–02:30</b>Speaker 1（經管-1）開場定調、設定 C-Suite 框架</div>
+    <div class="t2"><b>02:30–16:00</b>Speakers 2–12（11 人）深入數據解剖 · 13.5′</div>
+    <div class="t3"><b>16:00–19:30</b>Speaker 13（經管-1）總結裁決、四大處置戰略</div>
+    <div class="t4"><b>19:30–20:00</b>彈性 / 致謝</div>
+  </div>
+
+  <figure>
+  <div class="fig">
+  <svg viewBox="0 0 1260 899" role="img" aria-label="首尾呼應框架分工心智圖：中心為 20 分鐘簡報，向右展開五區塊——開場、資財數據與稽核、工管門市與供應鏈、經管費用與治理、收尾終極裁決；開場與收尾皆由經管-1 擔任，以呼應線相連。">
+<g font-family="Noto Sans TC, sans-serif">
+<rect x="14" y="402" width="222" height="96" rx="4" fill="#101a2b"/>
+<text x="125" y="436" text-anchor="middle" font-size="18" font-weight="700" fill="#ffffff">20 分鐘簡報</text>
+<text x="125" y="462" text-anchor="middle" font-size="18" font-weight="700" fill="#ffffff">首尾呼應 · 13 人</text>
+<text x="125" y="484" text-anchor="middle" font-size="12.5" fill="#9aa6b6">同一人開場，同一人裁決收尾</text>
+<path d="M236 450 C 272 450, 272 90, 306 90" fill="none" stroke="#91551f" stroke-width="1.6"/>
+<rect x="306" y="64" width="252" height="52" rx="4" fill="#faf2e9" stroke="#91551f" stroke-width="1.2"/>
+<rect x="306" y="64" width="4" height="52" fill="#91551f"/>
+<text x="324" y="86" font-size="16" font-weight="700" fill="#91551f">開場　C-Suite 框架預告</text>
+<text x="324" y="105" font-size="12.5" fill="#6b7788">經管-1 · 1 人</text>
+<path d="M558 90 C 586 90, 586 90, 614 90" fill="none" stroke="#91551f" stroke-width="1.2" opacity=".45"/>
+<path d="M236 450 C 272 450, 272 242, 306 242" fill="none" stroke="#24527f" stroke-width="1.6"/>
+<rect x="306" y="117" width="252" height="251" rx="4" fill="#edf3f9" stroke="#24527f" stroke-width="1.2"/>
+<rect x="306" y="117" width="4" height="251" fill="#24527f"/>
+<text x="324" y="139" font-size="16" font-weight="700" fill="#24527f">資財　數據與稽核</text>
+<text x="324" y="158" font-size="12.5" fill="#6b7788">資財 4 人</text>
+<text x="324" y="176" font-size="12.5" fill="#6b7788">5.1′　Panel 總覽、用戶、POS、流動比率</text>
+<path d="M558 242 C 586 242, 586 151, 614 151" fill="none" stroke="#24527f" stroke-width="1.2" opacity=".45"/>
+<path d="M558 242 C 586 242, 586 212, 614 212" fill="none" stroke="#24527f" stroke-width="1.2" opacity=".45"/>
+<path d="M558 242 C 586 242, 586 273, 614 273" fill="none" stroke="#24527f" stroke-width="1.2" opacity=".45"/>
+<path d="M558 242 C 586 242, 586 334, 614 334" fill="none" stroke="#24527f" stroke-width="1.2" opacity=".45"/>
+<path d="M236 450 C 272 450, 272 486, 306 486" fill="none" stroke="#1d6b43" stroke-width="1.6"/>
+<rect x="306" y="361" width="252" height="251" rx="4" fill="#eef6f1" stroke="#1d6b43" stroke-width="1.2"/>
+<rect x="306" y="361" width="4" height="251" fill="#1d6b43"/>
+<text x="324" y="383" font-size="16" font-weight="700" fill="#1d6b43">工管　門市與供應鏈</text>
+<text x="324" y="402" font-size="12.5" fill="#6b7788">工管 4 人</text>
+<text x="324" y="420" font-size="12.5" fill="#6b7788">4.8′　規模、供應鏈、單店、造假操作面</text>
+<path d="M558 486 C 586 486, 586 395, 614 395" fill="none" stroke="#1d6b43" stroke-width="1.2" opacity=".45"/>
+<path d="M558 486 C 586 486, 586 456, 614 456" fill="none" stroke="#1d6b43" stroke-width="1.2" opacity=".45"/>
+<path d="M558 486 C 586 486, 586 517, 614 517" fill="none" stroke="#1d6b43" stroke-width="1.2" opacity=".45"/>
+<path d="M558 486 C 586 486, 586 578, 614 578" fill="none" stroke="#1d6b43" stroke-width="1.2" opacity=".45"/>
+<path d="M236 450 C 272 450, 272 700, 306 700" fill="none" stroke="#91551f" stroke-width="1.6"/>
+<rect x="306" y="605" width="252" height="190" rx="4" fill="#faf2e9" stroke="#91551f" stroke-width="1.2"/>
+<rect x="306" y="605" width="4" height="190" fill="#91551f"/>
+<text x="324" y="627" font-size="16" font-weight="700" fill="#91551f">經管　費用與治理</text>
+<text x="324" y="646" font-size="12.5" fill="#6b7788">經管 3 人（不含開場者）</text>
+<text x="324" y="664" font-size="12.5" fill="#6b7788">3.6′　費用結構、治理、事件始末</text>
+<path d="M558 700 C 586 700, 586 639, 614 639" fill="none" stroke="#91551f" stroke-width="1.2" opacity=".45"/>
+<path d="M558 700 C 586 700, 586 700, 614 700" fill="none" stroke="#91551f" stroke-width="1.2" opacity=".45"/>
+<path d="M558 700 C 586 700, 586 761, 614 761" fill="none" stroke="#91551f" stroke-width="1.2" opacity=".45"/>
+<path d="M236 450 C 272 450, 272 822, 306 822" fill="none" stroke="#91551f" stroke-width="1.6"/>
+<rect x="306" y="796" width="252" height="52" rx="4" fill="#faf2e9" stroke="#91551f" stroke-width="1.2"/>
+<rect x="306" y="796" width="4" height="52" fill="#91551f"/>
+<text x="324" y="818" font-size="16" font-weight="700" fill="#91551f">收尾　終極裁決</text>
+<text x="324" y="837" font-size="12.5" fill="#6b7788">經管-1 · 1 人（同開場）</text>
+<path d="M558 822 C 586 822, 586 822, 614 822" fill="none" stroke="#91551f" stroke-width="1.2" opacity=".45"/>
+<rect x="616" y="66" width="570" height="48" rx="3" fill="#ffffff" stroke="#e3e7ee"/>
+<rect x="616" y="66" width="3" height="48" fill="#91551f"/>
+<text x="638" y="88" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="600" fill="#91551f">P1</text>
+<text x="686" y="89" font-size="14.5" font-weight="500" fill="#101a2b">開場：三視角預告＋交棒框架</text>
+<text x="1180" y="89" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="12.5" fill="#91551f">經管-1</text>
+<text x="686" y="107" font-family="IBM Plex Mono, monospace" font-size="11.5" fill="#8a95a6">2.5′</text>
+<rect x="616" y="127" width="570" height="48" rx="3" fill="#ffffff" stroke="#e3e7ee"/>
+<rect x="616" y="127" width="3" height="48" fill="#24527f"/>
+<text x="638" y="149" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="600" fill="#24527f">P2</text>
+<text x="686" y="150" font-size="14.5" font-weight="500" fill="#101a2b">Panel A/B 數據演變總覽（18Q3→19Q3）</text>
+<text x="1180" y="150" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="12.5" fill="#24527f">資財-1</text>
+<text x="686" y="168" font-family="IBM Plex Mono, monospace" font-size="11.5" fill="#8a95a6">1.5′</text>
+<rect x="616" y="188" width="570" height="48" rx="3" fill="#ffffff" stroke="#e3e7ee"/>
+<rect x="616" y="188" width="3" height="48" fill="#24527f"/>
+<text x="638" y="210" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="600" fill="#24527f">P10</text>
+<text x="686" y="211" font-size="14.5" font-weight="500" fill="#101a2b">App 3,000 萬用戶與私域流量池</text>
+<text x="1180" y="211" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="12.5" fill="#24527f">資財-2</text>
+<text x="686" y="229" font-family="IBM Plex Mono, monospace" font-size="11.5" fill="#8a95a6">1.2′</text>
+<rect x="616" y="249" width="570" height="48" rx="3" fill="#ffffff" stroke="#e3e7ee"/>
+<rect x="616" y="249" width="3" height="48" fill="#24527f"/>
+<text x="638" y="271" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="600" fill="#24527f">P11</text>
+<text x="686" y="272" font-size="14.5" font-weight="500" fill="#101a2b">POS 系統數據稽核漏洞</text>
+<text x="1180" y="272" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="12.5" fill="#24527f">資財-3</text>
+<text x="686" y="290" font-family="IBM Plex Mono, monospace" font-size="11.5" fill="#8a95a6">1.2′</text>
+<rect x="616" y="310" width="570" height="48" rx="3" fill="#ffffff" stroke="#e3e7ee"/>
+<rect x="616" y="310" width="3" height="48" fill="#24527f"/>
+<text x="638" y="332" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="600" fill="#24527f">P12</text>
+<text x="686" y="333" font-size="14.5" font-weight="500" fill="#101a2b">流動比率 4.23 與稽核總結</text>
+<text x="1180" y="333" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="12.5" fill="#24527f">資財-4</text>
+<text x="686" y="351" font-family="IBM Plex Mono, monospace" font-size="11.5" fill="#8a95a6">1.2′</text>
+<rect x="616" y="371" width="570" height="48" rx="3" fill="#ffffff" stroke="#e3e7ee"/>
+<rect x="616" y="371" width="3" height="48" fill="#1d6b43"/>
+<text x="638" y="393" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="600" fill="#1d6b43">P3</text>
+<text x="686" y="394" font-size="14.5" font-weight="500" fill="#101a2b">4,507 家門市規模與擴張軌跡</text>
+<text x="1180" y="394" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="12.5" fill="#1d6b43">工管-1</text>
+<text x="686" y="412" font-family="IBM Plex Mono, monospace" font-size="11.5" fill="#8a95a6">1.2′</text>
+<rect x="616" y="432" width="570" height="48" rx="3" fill="#ffffff" stroke="#e3e7ee"/>
+<rect x="616" y="432" width="3" height="48" fill="#1d6b43"/>
+<text x="638" y="454" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="600" fill="#1d6b43">P4</text>
+<text x="686" y="455" font-size="14.5" font-weight="500" fill="#101a2b">快取店供應鏈規模效益</text>
+<text x="1180" y="455" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="12.5" fill="#1d6b43">工管-2</text>
+<text x="686" y="473" font-family="IBM Plex Mono, monospace" font-size="11.5" fill="#8a95a6">1.2′</text>
+<rect x="616" y="493" width="570" height="48" rx="3" fill="#ffffff" stroke="#e3e7ee"/>
+<rect x="616" y="493" width="3" height="48" fill="#1d6b43"/>
+<text x="638" y="515" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="600" fill="#1d6b43">P5</text>
+<text x="686" y="516" font-size="14.5" font-weight="500" fill="#101a2b">單店營運模型與 53.22% 毛利率組成</text>
+<text x="1180" y="516" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="12.5" fill="#1d6b43">工管-3</text>
+<text x="686" y="534" font-family="IBM Plex Mono, monospace" font-size="11.5" fill="#8a95a6">1.2′</text>
+<rect x="616" y="554" width="570" height="48" rx="3" fill="#ffffff" stroke="#e3e7ee"/>
+<rect x="616" y="554" width="3" height="48" fill="#1d6b43"/>
+<text x="638" y="576" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="600" fill="#1d6b43">P9</text>
+<text x="686" y="577" font-size="14.5" font-weight="500" fill="#101a2b">營運面造假細節</text>
+<text x="1180" y="577" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="12.5" fill="#1d6b43">工管-4</text>
+<text x="686" y="595" font-family="IBM Plex Mono, monospace" font-size="11.5" fill="#8a95a6">1.2′</text>
+<rect x="616" y="615" width="570" height="48" rx="3" fill="#ffffff" stroke="#e3e7ee"/>
+<rect x="616" y="615" width="3" height="48" fill="#91551f"/>
+<text x="638" y="637" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="600" fill="#91551f">P6</text>
+<text x="686" y="638" font-size="14.5" font-weight="500" fill="#101a2b">138% 營業費用率結構性傷痛</text>
+<text x="1180" y="638" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="12.5" fill="#91551f">經管-2</text>
+<text x="686" y="656" font-family="IBM Plex Mono, monospace" font-size="11.5" fill="#8a95a6">1.2′</text>
+<rect x="616" y="676" width="570" height="48" rx="3" fill="#ffffff" stroke="#e3e7ee"/>
+<rect x="616" y="676" width="3" height="48" fill="#91551f"/>
+<text x="638" y="698" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="600" fill="#91551f">P7</text>
+<text x="686" y="699" font-size="14.5" font-weight="500" fill="#101a2b">公司治理與代理人風險成因</text>
+<text x="1180" y="699" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="12.5" fill="#91551f">經管-3</text>
+<text x="686" y="717" font-family="IBM Plex Mono, monospace" font-size="11.5" fill="#8a95a6">1.2′</text>
+<rect x="616" y="737" width="570" height="48" rx="3" fill="#ffffff" stroke="#e3e7ee"/>
+<rect x="616" y="737" width="3" height="48" fill="#91551f"/>
+<text x="638" y="759" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="600" fill="#91551f">P8</text>
+<text x="686" y="760" font-size="14.5" font-weight="500" fill="#101a2b">2020/4 財務造假事件始末</text>
+<text x="1180" y="760" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="12.5" fill="#91551f">經管-4</text>
+<text x="686" y="778" font-family="IBM Plex Mono, monospace" font-size="11.5" fill="#8a95a6">1.2′</text>
+<rect x="616" y="798" width="570" height="48" rx="3" fill="#ffffff" stroke="#e3e7ee"/>
+<rect x="616" y="798" width="3" height="48" fill="#91551f"/>
+<text x="638" y="820" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="600" fill="#91551f">P13</text>
+<text x="686" y="821" font-size="14.5" font-weight="500" fill="#101a2b">總結裁決：四大處置戰略＋終極決策</text>
+<text x="1180" y="821" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="12.5" fill="#91551f">經管-1</text>
+<text x="686" y="839" font-family="IBM Plex Mono, monospace" font-size="11.5" fill="#8a95a6">3.5′</text>
+<path d="M 1186 90 C 1228 90, 1228 822, 1186 822" fill="none" stroke="#91551f" stroke-width="1.6" stroke-dasharray="5 4"/>
+<circle cx="1186" cy="90" r="4" fill="#91551f"/>
+<circle cx="1186" cy="822" r="4" fill="#91551f"/>
+<text x="1238" y="456" font-size="13" font-weight="700" fill="#91551f" transform="rotate(90 1238 456)" text-anchor="middle">首尾呼應：經管-1 開場 ＝ 經管-1 裁決</text>
+</g></svg>
+  </div>
+  <figcaption>右側虛線弧線＝首尾呼應迴路（P1 與 P13 同為經管-1）。此圖依「誰負責哪一塊」分群，非上台順序；上台順序見 03 分鏡表。</figcaption>
+  </figure>
+  </div>
+</section>
+
+<!-- ─────────── 03 分鏡 ─────────── -->
+<section class="pad" id="s3">
+  <div class="shead">
+    <span class="no">03</span>
+    <div class="tt">
+      <h2>分鏡表　13 講次</h2>
+      <p class="lede">依實際上台順序排列（非部門分組）。四大處置戰略（Sell／Buy／Lawsuit／Hold）<b>全部由 P13 經管-1 一人於收尾裁決時講完</b>，中間 11 人只負責鋪陳數據與事件，不搶先評論處置方案。</p>
+    </div>
+  </div>
+
+  <div class="body tw">
+  <table>
+    <tr>
+      <th style="width:50px">#</th>
+      <th style="width:14%">時段</th>
+      <th style="width:27%">標題／論點</th>
+      <th style="width:90px">主講</th>
+      <th>引用（唯一可用數字）</th>
+      <th style="width:60px" class="r">時間</th>
+    </tr>
+    <tr data-track="mg"><td class="tnum">P1</td><td class="tnum sm">00:00–02:30</td><td>開場：三視角預告＋交棒框架，不重複公司故事或新聞摘要</td><td><span class="mk mg">經管-1</span></td><td class="sm">53.22%／3,000萬用戶／138%費用率（三視角預告，僅點名不展開）</td><td class="r tnum">2.5′</td></tr>
+    <tr data-track="fi"><td class="tnum">P2</td><td class="tnum sm">02:30–04:00</td><td>Panel A/B 數據演變總覽（COO/CTO/CFO 三視角的數據底盤）</td><td><span class="mk fi">資財-1</span></td><td class="tnum sm">2018Q3 → 2019Q3 營收與毛利率趨勢，以 2019Q1 為錨點的因果證據（原案例 Panel A／B）</td><td class="r tnum">1.5′</td></tr>
+    <tr data-track="im"><td class="tnum">P3</td><td class="tnum sm">04:00–05:12</td><td>4,507 家門市規模與擴張軌跡</td><td><span class="mk im">工管-1</span></td><td class="tnum sm">門市 4,507 家</td><td class="r tnum">1.2′</td></tr>
+    <tr data-track="im"><td class="tnum">P4</td><td class="tnum sm">05:12–06:24</td><td>快取店（Pickup Store）供應鏈規模效益</td><td><span class="mk im">工管-2</span></td><td class="sm">快取店供應鏈規模效益（原逐字稿敘述，無案例頁碼可引）</td><td class="r tnum">1.2′</td></tr>
+    <tr data-track="im"><td class="tnum">P5</td><td class="tnum sm">06:24–07:36</td><td>單店營運模型與 53.22% 毛利率組成</td><td><span class="mk im">工管-3</span></td><td class="tnum sm">毛利率 53.22%</td><td class="r tnum">1.2′</td></tr>
+    <tr data-track="mg"><td class="tnum">P6</td><td class="tnum sm">07:36–08:48</td><td>138% 營業費用率的結構性傷痛（總部開支 vs 門市利潤）</td><td><span class="mk mg">經管-2</span></td><td class="tnum sm">費用率自 2019Q1 基準惡化至 2019Q3 的 138.33%（發現 1 已定案）</td><td class="r tnum">1.2′</td></tr>
+    <tr data-track="mg"><td class="tnum">P7</td><td class="tnum sm">08:48–10:00</td><td>公司治理與代理人風險成因</td><td><span class="mk mg">經管-3</span></td><td class="sm">案例敘述（董事會監督失靈的制度成因，無單一數字可引）</td><td class="r tnum">1.2′</td></tr>
+    <tr data-track="mg"><td class="tnum">P8</td><td class="tnum sm">10:00–11:12</td><td>2020 年 4 月財務造假事件始末</td><td><span class="mk mg">經管-4</span></td><td class="tnum sm">虛增交易額 ¥22 億人民幣／股價暴跌 80%</td><td class="r tnum">1.2′</td></tr>
+    <tr data-track="im"><td class="tnum">P9</td><td class="tnum sm">11:12–12:24</td><td>營運面造假細節（門市／訂單端手法）</td><td><span class="mk im">工管-4</span></td><td class="sm">案例揭露之門市層級異常交易手法（資料缺口：確切門市數未載，W2 10/3 定稿日前待補）</td><td class="r tnum">1.2′</td></tr>
+    <tr data-track="fi"><td class="tnum">P10</td><td class="tnum sm">12:24–13:36</td><td>App 3,000 萬用戶與私域流量池</td><td><span class="mk fi">資財-2</span></td><td class="tnum sm">私域用戶 3,000 萬</td><td class="r tnum">1.2′</td></tr>
+    <tr data-track="fi"><td class="tnum">P11</td><td class="tnum sm">13:36–14:48</td><td>POS 系統數據稽核漏洞（技術偵測面）</td><td><span class="mk fi">資財-3</span></td><td class="sm">POS 系統數據稽核漏洞（技術面，串接 P8 與 P9 的事件敘述）</td><td class="r tnum">1.2′</td></tr>
+    <tr data-track="fi"><td class="tnum">P12</td><td class="tnum sm">14:48–16:00</td><td>流動比率 4.23 與稽核總結，交回麥克風</td><td><span class="mk fi">資財-4</span></td><td class="tnum sm">流動比率 4.23</td><td class="r tnum">1.2′</td></tr>
+    <tr data-track="mg"><td class="tnum">P13</td><td class="tnum sm">16:00–19:30</td><td>總結裁決：穿透數字、四大處置戰略雙角色矩陣、終極決策與觸發條件</td><td><span class="mk mg">經管-1</span></td><td class="tnum sm">4,507家／53.22%／3,000萬／138.33%／4.23（全部回引）</td><td class="r tnum">3.5′</td></tr>
+  </table>
+  </div>
+  <p class="note">合計 20.0 分鐘（2.5＋1.5＋1.2×9＋3.5，其中 P9-P12 順序可依 W3／W6 兩次演練微調）。19:30–20:00 為彈性 / 致謝，工管-5 場邊計時，不編號、不占講次，作為 Q&amp;A 後援。</p>
+</section>
+
+<!-- ─────────── 04 交棒 ─────────── -->
+<section class="pad" id="s4">
+  <div class="shead">
+    <span class="no">04</span>
+    <div class="tt">
+      <h2>順序與交棒</h2>
+      <p class="lede">橫軸 P1 到 P13，縱軸三個學程。經管欄位第 1 格與第 13 格皆亮起，標記「同一人」——這是全份文件裡最重要的一條視覺提示。</p>
+    </div>
+  </div>
+
+  <div class="body lanes">
+    <div class="lane mg" data-track="mg">
+      <div class="lh"><span class="n">經管</span><span class="c">4 人 · 開場、費用、治理、事件、收尾</span></div>
+      <div class="slots">
+        <div class="slot mg on loop"><span class="p">P1</span><span>經管-1</span></div>
+        <div class="slot"></div><div class="slot"></div><div class="slot"></div><div class="slot"></div>
+        <div class="slot mg on"><span class="p">P6</span><span>經管-2</span></div>
+        <div class="slot mg on"><span class="p">P7</span><span>經管-3</span></div>
+        <div class="slot mg on"><span class="p">P8</span><span>經管-4</span></div>
+        <div class="slot"></div><div class="slot"></div><div class="slot"></div><div class="slot"></div>
+        <div class="slot mg on loop"><span class="p">P13</span><span>經管-1</span></div>
+      </div>
+    </div>
+    <div class="lane fi" data-track="fi">
+      <div class="lh"><span class="n">資財</span><span class="c">4 人 · 數據與稽核</span></div>
+      <div class="slots">
+        <div class="slot"></div>
+        <div class="slot fi on"><span class="p">P2</span><span>資財-1</span></div>
+        <div class="slot"></div><div class="slot"></div><div class="slot"></div><div class="slot"></div><div class="slot"></div><div class="slot"></div><div class="slot"></div>
+        <div class="slot fi on"><span class="p">P10</span><span>資財-2</span></div>
+        <div class="slot fi on"><span class="p">P11</span><span>資財-3</span></div>
+        <div class="slot fi on"><span class="p">P12</span><span>資財-4</span></div>
+        <div class="slot"></div>
+      </div>
+    </div>
+    <div class="lane im" data-track="im">
+      <div class="lh"><span class="n">工管</span><span class="c">5 人 · 門市與供應鏈（1 人後援）</span></div>
+      <div class="slots">
+        <div class="slot"></div><div class="slot"></div>
+        <div class="slot im on"><span class="p">P3</span><span>工管-1</span></div>
+        <div class="slot im on"><span class="p">P4</span><span>工管-2</span></div>
+        <div class="slot im on"><span class="p">P5</span><span>工管-3</span></div>
+        <div class="slot"></div><div class="slot"></div><div class="slot"></div>
+        <div class="slot im on"><span class="p">P9</span><span>工管-4</span></div>
+        <div class="slot"></div><div class="slot"></div><div class="slot"></div><div class="slot"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hos">
+    <div class="strong"><b>P1 → P2</b>經管交資財。逐字：「……接下來，我將麥克風交給營運與資管團隊，請 Speaker 2 為我們剖析 Panel A 與 Panel B 的數據演變！」</div>
+    <div><b>P5 → P6</b>工管交經管：單店營運講完，進費用結構</div>
+    <div><b>P9 → P10</b>工管交資財：造假操作面講完，轉技術稽核面</div>
+    <div class="strong"><b>P12 → P13</b>資財交經管。逐字：「……以上是資管與數據稽核的分析，現在將麥克風交回給我們的 CEO 進行總結裁決！」→「感謝 Speaker 12！我是第 13 位報告人，重新接回麥克風……」</div>
+  </div>
+  <p class="note">全場共 5 次跨學程交棒（含首尾呼應本身不算交棒）。P6→P7→P8 為經管內部連續發言，P3→P4→P5 為工管內部連續發言，均不需交棒句，只需眼神與站位切換。</p>
+</section>
+
+<!-- ─────────── 05 頭條數字 ─────────── -->
+<section class="pad" id="s5">
+  <div class="shead">
+    <span class="no">05</span>
+    <div class="tt">
+      <h2>頭條數字與情境</h2>
+      <p class="lede">本版情境是「2020 年 4 月造假東窗事發後」的處置決策。<b>全案已定案：以 2019Q1 為主要（錨定）季度</b>，開場稿與收尾稿統一以此為基準；毛利率、費用率等指標呈現的是「2019Q1 基準　→　逐季惡化　→　2020 年 4 月引爆」的因果趨勢，不是單一季度快照。（提醒：此處數字與 09/26 版「2019 Q1 IPO 前夕」報告書<b>屬於不同案例情境</b>，兩份文件的數字不可互相替換引用。）</p>
+    </div>
+  </div>
+
+  <div class="body tw">
+  <table>
+    <tr><th style="width:30%">項目</th><th style="width:16%" class="r">數值</th><th style="width:20%">視角</th><th>備註</th></tr>
+    <tr><td>門市規模</td><td class="r tnum">4,507 家</td><td class="sm">COO　工業管理系</td><td class="sm"><b>2019Q1 基準規模</b>，收尾裁決引用之基礎規模</td></tr>
+    <tr><td>毛利率</td><td class="r tnum">53.22%</td><td class="sm">COO　工業管理系</td><td class="sm"><b>2019Q1 基準毛利率</b>，單店與快取店供應鏈效益之結果</td></tr>
+    <tr><td>私域用戶</td><td class="r tnum">3,000 萬</td><td class="sm">CTO　資訊管理系</td><td class="sm"><b>2019Q1 起算</b>之 App 私域流量池，本組由資財小組承接（見發現 2）</td></tr>
+    <tr><td>總營業費用率</td><td class="r tnum neg">138.33%</td><td class="sm">CEO/CFO　EMBA</td><td class="sm"><b>從 2019Q1 基準費用結構，逐季惡化至 2019Q3</b>；門市利潤無法覆蓋總部開支</td></tr>
+    <tr><td>流動比率</td><td class="r tnum">4.23</td><td class="sm">CEO/CFO　EMBA</td><td class="sm"><b>2019Q1 基準流動比率</b>，裁決稿定性為「美股 IPO 融資帶來的資本假象」，非自發造血能力</td></tr>
+    <tr><td>財務造假金額</td><td class="r tnum neg">¥22 億人民幣</td><td class="sm">事件背景</td><td class="sm">2020 年 4 月揭露，虛增交易額——<b>2019Q1 埋下的費用壓力於此引爆</b></td></tr>
+    <tr><td>股價反應</td><td class="r tnum neg">−80%</td><td class="sm">事件背景</td><td class="sm">造假消息公布後暴跌，觸發本次處置決策</td></tr>
+    <tr><td>裁決觸發：關店</td><td class="r tnum">10%</td><td class="sm">COO 執行</td><td class="sm">立即關閉之低效門市比例</td></tr>
+    <tr><td>裁決觸發：售價</td><td class="r tnum">¥15+</td><td class="sm">CTO 執行</td><td class="sm">停止無差別補貼後之單杯售價下限</td></tr>
+    <tr><td>停損窗口</td><td class="r tnum">90 天</td><td class="sm">全組</td><td class="sm">關店率超 20% 或供應商斷供，即刻執行停損</td></tr>
+  </table>
+  </div>
+
+  <h3 style="font-size:18px; margin:34px 0 4px">本組提醒　兩項發現</h3>
+
+  <div class="find" data-track="mg">
+    <span class="fno">發現 1　·　已定案</span>
+    <div><h4>開場與收尾統一以 2019Q1 為錨點<span class="own">經管-1 · P1／P13</span></h4>
+      <div class="calc">開場稿：「本組以 2019Q1 的數字」　→　收尾稿：「2019Q3 總營業費用率高達 138.33%」——不是矛盾，是同一條因果線的頭尾</div>
+      <p><b>定案：2019Q1 是全案的主要（錨定）季度</b>，開場稿與收尾稿都以此為基準；4,507家門市／53.22%／3,000萬／4.23 四項指標視為 2019Q1 的基準快照，138.33% 費用率則呈現「從 2019Q1 基準一路惡化到 2019Q3」的趨勢，最終匯流到 2020 年 4 月的造假事件與處置決策。02 節 Panel A/B（2018Q3→2019Q3）的趨勢圖正好是這條因果線的視覺證據，全組上台統一使用這個講法，不再各自對應不同季度。</p></div>
+  </div>
+
+  <div class="find" data-track="fi">
+    <span class="fno">發現 2</span>
+    <div><h4>「資訊管理系」的分工歸屬<span class="own">資財-2 · P10</span></h4>
+      <p>逐字稿原文將 CTO 視角歸為「資訊管理系」，但本組分工僅有工管／經管／資財三學程。POS 系統數據稽核屬財會查核範疇之一，<b>本版將資訊管理系（CTO）視角的內容統一併入資財小組負責</b>，上台時可視需要說明「本組資財小組同時涵蓋財務與資訊系統稽核」。</p></div>
+  </div>
+
+  <p class="note warn">4,507 家門市、快取店供應鏈效益、營運面造假細節（P9）與治理成因（P7）四項，逐字稿僅有敘述、未附原始案例頁碼或明細數字。上台時如被追問來源，據實答「案例材料」或標記資料缺口，不要臨場編造精確數字。</p>
+</section>
+
+<!-- ─────────── 06 四大處置戰略 ─────────── -->
+<section class="pad" id="s6">
+  <div class="shead">
+    <span class="no">06</span>
+    <div class="tt">
+      <h2>四大處置戰略：董事會 vs 顧問</h2>
+      <p class="lede">面對再融資中斷，將四個處置選項放入「對董事會報告（受託責任）」與「顧問建議（重組價值）」進行極限測試。<b>這四組對句全部由 P13 經管-1 一人於收尾裁決時講完</b>，中間 11 人不預先評論。</p>
+    </div>
+  </div>
+
+  <div class="body">
+
+  <div class="issue" data-track="mg">
+    <div class="ih"><h3>方案一　立即賣出　Sell</h3><span class="en">Immediate Divestiture</span></div>
+    <div class="pcs">
+      <div class="pc board"><h5>對董事會 BOARD <span class="own">受託責任</span></h5><ul>
+        <li>能鎖定殘值，立即止血，避免虧損持續擴大侵蝕股東權益。</li>
+      </ul></div>
+      <div class="pc consult"><h5>顧問建議 CONSULTANT <span class="own">重組價值</span></h5><ul>
+        <li>在估值冰點割肉，會徹底抹殺 <span class="num">4,507</span> 家門市與 <span class="num">53%</span> 毛利率所代表的重組價值。</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="issue" data-track="fi">
+    <div class="ih"><h3>方案二　逢低增持　Buy</h3><span class="en">Opportunistic Accumulation</span></div>
+    <div class="pcs">
+      <div class="pc board"><h5>對董事會 BOARD <span class="own">受託責任</span></h5><ul>
+        <li>可能挪用營運資金，面臨內部人交易調查風險。</li>
+      </ul></div>
+      <div class="pc consult"><h5>顧問建議 CONSULTANT <span class="own">重組價值</span></h5><ul>
+        <li>僅限大股東進行折價「私募債轉股」，絕不公開市場回購，避免坐實內線交易疑慮。</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="issue" data-track="im">
+    <div class="ih"><h3>方案三　加入集體訴訟　Lawsuit</h3><span class="en">Class Action</span></div>
+    <div class="pcs">
+      <div class="pc board"><h5>對董事會 BOARD <span class="own">受託責任</span></h5><ul>
+        <li>面臨跨國執行壁壘，訴訟時程與勝算皆難預估。</li>
+      </ul></div>
+      <div class="pc consult"><h5>顧問建議 CONSULTANT <span class="own">重組價值</span></h5><ul>
+        <li>採勝訴抽成模式（零現金成本）「以訴促合」，將訴訟權轉化為重組談判籌碼。</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="issue" data-track="mg">
+    <div class="ih"><h3>方案四　觀望續抱　Hold</h3><span class="en">Wait and See</span></div>
+    <div class="pcs">
+      <div class="pc board"><h5>對董事會 BOARD <span class="own">受託責任</span></h5><ul>
+        <li>有停牌凍結風險，資金與股權流動性可能同時受限。</li>
+      </ul></div>
+      <div class="pc consult"><h5>顧問建議 CONSULTANT <span class="own">重組價值</span></h5><ul>
+        <li>能買入「資訊選擇權」，爭取時間修復單位經濟學（Unit Economics）。</li>
+      </ul></div>
+    </div>
+  </div>
+
+  </div>
+
+  <div class="verdict">
+    <span class="lb">經營委員會終極裁決 · Final Verdict</span>
+    <h4>附帶營運觸發條件之觀望重組，並輔以集體訴訟對沖</h4>
+    <p>拒絕恐慌割肉，反對盲目抄底。以「觀望續抱」為主軸，疊加「集體訴訟」對沖下檔風險，並設定三項可執行的營運觸發條件：</p>
+    <div class="triggers">
+      <div class="trigger"><span class="tn">觸發 1　COO 執行</span><p>立即關閉 <span class="num">10%</span> 低效門市</p></div>
+      <div class="trigger"><span class="tn">觸發 2　CTO 執行</span><p>停止無差別補貼，拉升單杯售價至 <span class="num">¥15</span> 元以上</p></div>
+      <div class="trigger"><span class="tn">觸發 3　全組停損窗</span><p><span class="num">90</span> 天內：若關店率超 <span class="num">20%</span> 或供應商斷供，即刻執行停損</p></div>
+    </div>
+    <p style="margin-top:16px">「資本可以購買規模，但買不到永續的單位經濟學。兼顧受託責任與資產重組價值，才是真正的經營智慧。」</p>
+  </div>
+</section>
+
+<!-- ─────────── 07 逐字稿 ─────────── -->
+<section class="pad" id="s7">
+  <div class="shead">
+    <span class="no">07</span>
+    <div class="tt">
+      <h2>經管-1　開場與收尾逐字稿</h2>
+      <p class="lede">同一人練習兩段：開場定調（自信、權威、語速明快）與收尾裁決（沉穩、節奏緊湊、不自問自答）。用手機錄音練習，分別壓在 2.5 分與 3.5 分內。</p>
+    </div>
+  </div>
+
+  <div class="body">
+
+  <div class="script">
+    <div class="sc-h"><h3>第 1 位　開場定調</h3><span class="en">Speaker 1 · 00:00–02:30 · 約 380 字</span></div>
+    <div class="sc-body">教授好，各位同學們好。我是今天的第 1 位報告人，同時我也將代表我們小組擔任最後的總結裁決人。
+
+今天我們完全不打算重複任何瑞幸咖啡的創業故事或新聞摘要。我們小組將直接模擬集團經營委員會（Executive Committee）的決策戰場。
+
+面對 2020 年 4 月爆發的 22 億元人民幣財務造假黑天鵝事件，以及暴跌 80% 的股價，我們不會只看單一維度。今天整場簡報，本組以 2019Q1 的數字為基礎，我們將由三個角色交疊穿透：
+
+一、工業管理系（COO 視角）：聚焦於門市毛利（53.22%）與快取店（Pickup Store）供應鏈規模效益。
+二、資訊管理系（CTO 視角）：聚焦於 App 3,000 萬私域流量池與 POS 系統數據稽核漏洞。
+三、EMBA 經營高管（CEO/CFO 視角：我）：聚焦於 138% 營業費用率的結構性傷痛、公司治理與四大處置戰略。
+
+接下來，我將先交棒給我們營運與資管團隊的 11 位專家，為各位帶來最深入的財務與營運數據解剖。有請我們團隊！</div>
+    <div class="sc-meta"><span class="mk mg">經管-1</span><span>語氣：自信、權威、眼神掃視全場，語速明快</span></div>
+    <div class="handoff"><span class="lb">交棒句 → Speaker 2</span>「……接下來，我將麥克風交給營運與資管團隊，請 Speaker 2 為我們剖析 Panel A 與 Panel B 的數據演變！」</div>
+  </div>
+
+  <div class="script">
+    <div class="sc-h"><h3>Speakers 2–12　中間解剖（摘要）</h3><span class="en">02:30–16:00 · 13.5′ · 詳見 03 分鏡表</span></div>
+    <div class="sc-body">中間 11 位組員依序快速匯報：2018Q3–2019Q3 營收爆發、DuPont 毛利率與費用率演變、流動比率 4.23、4,507 家門市與造假細節。每人只講自己那一格，不預先評論四大處置戰略，把結論留給 P13。</div>
+  </div>
+
+  <div class="script">
+    <div class="sc-h"><h3>第 13 位　總結裁決</h3><span class="en">Speaker 13 · 16:00–19:30 · 約 580 字</span></div>
+    <div class="handoff" style="margin-bottom:14px"><span class="lb">交棒句 ← Speaker 12</span>「……以上是資管與數據稽核的分析，現在將麥克風交回給我們的 CEO 進行總結裁決！」<br>（經管-1 上台）：「感謝 Speaker 12！我是第 13 位報告人，重新接回麥克風……」</div>
+    <div class="sc-body">感謝我們營運與資管團隊帶來精準的數據解剖。我是第 13 位報告人，重新接回麥克風。
+
+剛才 11 位專家展示了數據的兩個面孔：COO 看見了 4,507 家門市與 53.22% 毛利率的實體規模效益；CTO 看見了 3,000 萬數位用戶與系統漏洞——這些都是本組 2019Q1 的基準數字。但作為 CEO/CFO，我必須穿透這些數字——從 2019Q1 的基準費用結構，一路惡化到 2019Q3 總營業費用率高達 138.33%，門市利潤根本覆蓋不了總部開支；而 4.23 的流動比率，同樣是 2019Q1 以來，美股 IPO 融資帶來的資本幻象，並非自發造血能力。
+
+面對再融資中斷，我們將四個處置選項放入「對董事會報告（受託責任）」與「顧問建議（重組價值）」進行極限測試：
+
+一、立即賣出（Sell）：對董事會能鎖定殘值止血；但顧問提醒，在估值冰點割肉，會徹底抹殺 4,507 家門市與 53% 毛利率的重組價值。
+二、逢低增持（Buy）：對董事會可能挪用營運資金、面臨內部人交易調查；但顧問建議僅限大股東進行折價「私募債轉股」，絕不公開市場回購。
+三、加入集體訴訟（Lawsuit）：對董事會有跨國執行壁壘；但顧問主張採勝訴抽成模式（零現金成本）「以訴促合」，將訴訟權轉化為重組談判籌碼。
+四、觀望續抱（Hold）：對董事會有停牌凍結風險；但能買入資訊選擇權，爭取時間修復「單位經濟學」。
+
+【經營委員會終極裁決】：我們拒絕恐慌割肉，反對盲目抄底。我們採行「附帶營運觸發條件之觀望重組，並輔以集體訴訟對沖」：要求 COO 立即關閉 10% 低效門市，要求 CTO 停止無差別補貼、拉升單杯售價至 15 元以上。設定 90 天停損觸發點——若關店率超 20% 或供應商斷供，即刻執行停損！
+
+資本可以購買規模，但買不到永續的單位經濟學。兼顧受託責任與資產重組價值，才是真正的經營智慧。謝謝大家！</div>
+    <div class="sc-meta"><span class="mk mg">經管-1</span><span>語氣：自信回歸、沉穩、節奏緊湊、講話精準打中要點，不自問自答</span></div>
+  </div>
+
+  </div>
+  <p class="note">此二段逐字稿為使用者原創講稿，逐字收錄於本文件供分工排練使用；收尾稿已依發現 1 定案結果，加入「從 2019Q1 基準」之銜接語，其餘維持原文。四大處置戰略之對句亦已同步收錄於 06 節表格，方便單獨列印練習。</p>
+</section>
+
+<footer class="pad">
+  情境範圍：2020 年 4 月瑞幸咖啡財務造假事件（虛增交易額 ¥22 億人民幣、股價暴跌 80%）曝光後之經營委員會處置決策；<b>全案以 2019Q1 為主要（錨定）季度</b>，數據引用呈現「2019Q1 基準 → 逐季惡化 → 2019Q3 費用率 138.33% → 2020 年 4 月引爆」之因果趨勢（發現 1 已定案）。本情境與 09/26 版「2019 Q1 IPO 前夕」董事會報告書為不同案例情境，兩份文件之數字不可互相替換引用。凡逐字稿僅有敘述、未附原始頁碼或明細之處（快取店供應鏈效益、造假操作細節、公司治理成因），已於文中標示為<b>案例材料</b>或<b>資料缺口</b>，未自行推估精確數字。<br>
+  成員代號 工管-1～5、經管-1～4、資財-1～4 為占位，取得名單後直接替換；經管-1 固定身兼開場（P1）與收尾裁決（P13）。　·　本版為淺色設計，固定白底不隨系統切換。
+</footer>
+
+</div>
+
+<script>
+(function(){
+  var chips = [].slice.call(document.querySelectorAll('.chip'));
+  function apply(t){
+    if(t){ document.body.setAttribute('data-track', t); } else { document.body.removeAttribute('data-track'); }
+    chips.forEach(function(c){ c.setAttribute('aria-pressed', String(c.dataset.t === t)); });
+    try{ localStorage.setItem('lk-track-bookend', t); }catch(e){}
+  }
+  chips.forEach(function(c){
+    c.addEventListener('click', function(){
+      apply(c.dataset.t === document.body.getAttribute('data-track') ? '' : c.dataset.t);
+    });
+  });
+  var saved=''; try{ saved = localStorage.getItem('lk-track-bookend') || ''; }catch(e){}
+  if(saved) apply(saved);
+})();
+</script>
